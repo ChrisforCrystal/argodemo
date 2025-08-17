@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: token-pod
+  namespace: default  # 你可以根据需要更改命名空间
+spec:
+  serviceAccountName: default  # 替换为你的服务账户名称
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["sleep", "3600"]
+  restartPolicy: Never

@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: example-workflow  # 明确指定名称
+spec:
+  entrypoint: main
+  templates:
+  - name: main
+    steps:
+    - - name: hello
+        template: print-message
+        arguments:
+          parameters: [{name: message, value: "Hello, World!"}]
+      - name: goodbye
+        template: print-message
+        arguments:
+          parameters: [{name: message, value: "Goodbye, World!"}]
+  - name: print-message
+    inputs:
+      parameters:
+      - name: message
+    container:
+      image: alpine:latest
+      command: [echo, "{{inputs.parameters.message}}"]
